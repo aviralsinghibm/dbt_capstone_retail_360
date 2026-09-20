@@ -1,0 +1,181 @@
+version: 2
+
+models:
+
+  - name: dim_customers
+    description: "Customer dimension containing customer attributes, purchase metrics, and loyalty tier."
+
+    columns:
+      - name: customer_key
+        description: "Unique identifier for the customer."
+        tests:
+          - not_null
+          - unique
+
+      - name: total_spend
+        description: "Total historical customer spend."
+
+      - name: loyalty_tier
+        description: "Customer tier derived from total historical spend."
+
+
+  - name: dim_products
+    description: "Product dimension containing product attributes, sales performance, and inventory metrics."
+
+    columns:
+      - name: product_key
+        description: "Unique identifier for the product."
+        tests:
+          - not_null
+          - unique
+
+      - name: net_revenue
+        description: "Revenue after applying line-item discounts."
+
+      - name: total_available_qty
+        description: "Current available quantity across suppliers."
+
+
+  - name: dim_suppliers
+    description: "Supplier dimension containing supplier attributes, geography, inventory, sales, and revenue metrics."
+
+    columns:
+      - name: supplier_key
+        description: "Unique identifier for the supplier."
+        tests:
+          - not_null
+          - unique
+
+
+  - name: fct_orders
+    description: "Order-level fact table containing one row per order."
+
+    columns:
+      - name: order_key
+        description: "Unique identifier for the order."
+        tests:
+          - not_null
+          - unique
+
+
+  - name: fct_order_items
+    description: "Order-item fact table containing one row per order line item."
+
+    columns:
+      - name: order_key
+        description: "Identifier of the associated order."
+
+      - name: product_key
+        description: "Identifier of the associated product."
+
+      - name: net_revenue
+        description: "Line-item revenue after discount."
+
+  - name: customer_360
+    description: "Dashboard-ready customer 360 view combining customer metrics with geographic information."
+
+    columns:
+      - name: customer_key
+        tests:
+          - not_null
+          - unique
+
+      - name: total_orders
+        tests:
+          - not_null
+
+      - name: total_spend
+        tests:
+          - not_null
+
+  - name: product_analytics
+    description: "Dashboard-ready product sales, revenue, and inventory metrics."
+
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+          - unique
+
+      - name: total_quantity_sold
+        tests:
+          - not_null
+
+      - name: net_revenue
+        tests:
+          - not_null
+
+      - name: total_available_qty
+        tests:
+          - not_null
+
+  - name: inventory_analytics
+    description: "Dashboard-ready inventory availability and demand metrics."
+
+    columns:
+      - name: product_key
+        tests:
+          - not_null
+          - unique
+
+      - name: total_available_qty
+        tests:
+          - not_null
+
+      - name: total_quantity_sold
+        tests:
+          - not_null
+
+      - name: is_low_stock
+        tests:
+          - not_null
+
+      - name: is_high_demand
+        tests:
+          - not_null
+
+  - name: supplier_analytics
+    description: "Dashboard-ready supplier performance, inventory, order, and revenue metrics."
+
+    columns:
+      - name: supplier_key
+        tests:
+          - not_null
+          - unique
+
+      - name: products_supplied
+        tests:
+          - not_null
+
+      - name: total_available_qty
+        tests:
+          - not_null
+
+      - name: total_orders
+        tests:
+          - not_null
+
+      - name: total_revenue
+        tests:
+          - not_null
+
+  - name: order_analytics
+    description: "Dashboard-ready order-level revenue and order metrics."
+
+    columns:
+      - name: order_key
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_key
+        tests:
+          - not_null
+
+      - name: total_price
+        tests:
+          - not_null
+
+      - name: order_date
+        tests:
+          - not_null

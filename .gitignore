@@ -1,0 +1,21 @@
+# secrets
+.streamlit/secrets.toml
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# environment
+.env
+
+# local data
+*.csv
+*.parquet
+*.json

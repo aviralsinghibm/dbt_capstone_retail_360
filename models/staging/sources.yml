@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: retail_raw
+    database: retail360
+    schema: raw
+
+    tables:
+      - name: customer
+      - name: part
+      - name: orders
+      - name: lineitem
+      - name: partsupp
+      - name: supplier
+      - name: nation
+      - name: region

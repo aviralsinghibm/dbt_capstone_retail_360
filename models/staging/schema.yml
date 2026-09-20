@@ -1,0 +1,88 @@
+version: 2
+
+models:
+
+  - name: stg_customer
+    columns:
+      - name: c_custkey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_part
+    columns:
+      - name: p_partkey
+        tests:
+          - not_null
+          - unique
+
+  - name: stg_orders
+    columns:
+      - name: o_orderkey
+        tests:
+          - not_null
+          - unique
+      - name: o_custkey
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customer')
+              field: c_custkey
+
+  - name: stg_lineitem
+    columns:
+      - name: l_orderkey
+        tests:
+          - not_null
+      - name: l_partkey
+        tests:
+          - not_null
+      - name: l_suppkey
+        tests:
+          - not_null
+
+  - name: stg_partsupp
+    columns:
+      - name: ps_partkey
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_part')
+              field: p_partkey
+      - name: ps_suppkey
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_supplier')
+              field: s_suppkey
+
+  - name: stg_supplier
+    columns:
+      - name: s_suppkey
+        tests:
+          - not_null
+          - unique
+      - name: s_nationkey
+        tests:
+          - relationships:
+              to: ref('stg_nation')
+              field: n_nationkey
+
+  - name: stg_nation
+    columns:
+      - name: n_nationkey
+        tests:
+          - not_null
+          - unique
+      - name: n_regionkey
+        tests:
+          - relationships:
+              to: ref('stg_region')
+              field: r_regionkey
+
+  - name: stg_region
+    columns:
+      - name: r_regionkey
+        tests:
+          - not_null
+          - unique
