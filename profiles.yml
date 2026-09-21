@@ -1,13 +1,13 @@
 retail360:
   outputs:
     dev:
-      account: {{ env_var('SNOWFLAKE_ACCOUNT')}}
+      account: YGPBDMF-WEB14858
       database: RETAIL360
-      password: {{ env_var('SNOWFLAKE_PASSWORD')}}
+      password: Snowflake@1234
       role: ACCOUNTADMIN
       schema: STAGING
       threads: 2
       type: snowflake
-      user: {{ env_var('SNOWFLAKE_USER')}}
+      user: AVIRALSINGH24
       warehouse: COMPUTE_WH
   target: dev
